@@ -12,8 +12,29 @@ import {LibDiamond} from "./libraries/LibDiamond.sol";
 import {IDiamondCut} from "./interfaces/IDiamondCut.sol";
 
 contract Diamond {
-    constructor(address _contractOwner, address _diamondCutFacet) payable {
+    constructor(
+        address _contractOwner, 
+        address _diamondCutFacet, 
+        string memory _name, 
+        string memory _symbol,
+        uint256 _totalSupply,
+        bytes32 _merkleRoot,
+        address _erc721TokenAddress,
+        uint256 _presalePrice,
+        uint256 _minPurchase,
+        uint256 _maxPurchase
+    ) payable {
         LibDiamond.setContractOwner(_contractOwner);
+        LibDiamond.diamondStorage().name = _name;
+        LibDiamond.diamondStorage().symbol = _symbol;
+        LibDiamond.diamondStorage().totalSupply = _totalSupply;
+        LibDiamond.diamondStorage().merkleRoot = _merkleRoot;
+        LibDiamond.diamondStorage().erc721TokenAddress = _erc721TokenAddress;
+        LibDiamond.diamondStorage().merkleContractOwner = msg.sender;
+        LibDiamond.diamondStorage().presalePrice = _presalePrice;
+        LibDiamond.diamondStorage().minPurchase = _minPurchase;
+        LibDiamond.diamondStorage().maxPurchase = _maxPurchase;
+        
 
         // Add the diamondCut external function from the diamondCutFacet
         IDiamondCut.FacetCut[] memory cut = new IDiamondCut.FacetCut[](1);

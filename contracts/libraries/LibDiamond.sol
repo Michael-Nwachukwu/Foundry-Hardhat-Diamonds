@@ -47,6 +47,39 @@ library LibDiamond {
         mapping(bytes4 => bool) supportedInterfaces;
         // owner of the contract
         address contractOwner;
+
+        // =================================== ERC721 VARS =======================
+        // Token name
+        string name;
+
+        // Token symbol
+        string symbol;
+
+        uint256 totalSupply;
+
+        mapping(uint256 => address) owners;
+
+        mapping(address => uint256) balances;
+
+        mapping(uint256 => address) tokenApprovals;
+
+        mapping(address => mapping(address => bool)) operatorApprovals;
+
+        // =================================== MERKLE FACET VARS =======================
+
+        bytes32 merkleRoot;
+        uint256 tokenId;
+        address erc721TokenAddress;
+        address merkleContractOwner;
+        mapping(address => bool) hasClaimed;
+
+        // =================================== PRESALE FACET VARS =======================
+    
+        uint256 presalePrice;
+        uint256 minPurchase;
+        uint256 maxPurchase;
+
+
     }
 
     function diamondStorage()
